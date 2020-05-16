@@ -8,16 +8,11 @@ import AmadoProductsArea from './shopSidebar/amadoProductsArea';
 function Shop(){
 
     return(
-        <div className="main-content-wrapper d-flex clearfix">
-
-            <MobileNav />
-
-            <Header />
+        <>
 
             <ShopSidebar />
             <AmadoProductsArea />
-        </div>
-        
+        </>
     );
 
 }

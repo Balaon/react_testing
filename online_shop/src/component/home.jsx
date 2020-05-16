@@ -6,14 +6,9 @@ import ShopSidebar from './shopSidebar/shopSidebar';
 
 function Home(){
     return(
-        <div className="main-content-wrapper d-flex clearfix">
-
-            <MobileNav />
-
-            <Header />
+        
 
             <Products />
-        </div>
     );
 }
 export default Home
