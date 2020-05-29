@@ -1,38 +1,67 @@
 import React from 'react';
 import './App.css';
-import Home from './component/home';
-import Letter from './component/letter';
-import Footer from './component/footer';
-import Shop from './component/shop';
-import { Route, BrowserRouter } from 'react-router-dom';
-import MobileNav from './component/home/mobileNav';
-import Header from './component/home/header';
-import Cart from './component/cart';
+import { connect } from 'react-redux';
+import Navigation from './components/navigation';
+import Letter from './components/letter';
+import Footer from './components/footer';
+import roots from './router/router' 
+import { 
+    loadCatalog, 
+    loadBrands,
+    loadColors,
+    loadCategory
+} from './store/action_creatores'
 
 
-function App() {
-  return (
-    <BrowserRouter>
-      <div>
-        <div className="main-content-wrapper d-flex clearfix">
+class App extends React.Component{
+    
+    componentDidMount(){
+        this.props.loadCatalog()
+        this.props.loadCategory()
+        this.props.loadBrands()
+        this.props.loadColors()
 
-          <MobileNav />
-          <Header />
-
-          <Route exact path='/' component={ Home }/>
-          <Route exact path='/home' component={ Home }/>
-          <Route exact path='/shop' component={ Shop }/>
-          <Route exact path='/cart' component={ Cart  }/>
-          
-        </div>
-          
-        {/* <Home />
-        <Shop /> */}
-        <Letter />
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+    }
+    
+    render(){
+        return (
+            <div className="mainBox">
+                <div className="main-content-wrapper d-flex clearfix">
+                    <Navigation />
+                    {
+                        roots
+                    }
+                </div>
+                <Letter />
+                <Footer />
+            </div>
+        );
+    }
+  
 }
 
-export default App;
+const mapStateToProps = (store)=>{
+    return{
+        catalog: store.app.catalog,
+        categories: store.app.categories,
+        brands: store.app.brands,
+        colors: store.app.colors,
+        catalogLoading: store.app.isLoading.catalog || false,
+        categoryLoading: store.app.isLoading.categories || false,
+        brandsLoading: store.app.isLoading.brands || false,
+        colorsLoading: store.app.isLoading.colors || false,
+    }
+};
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        loadCatalog: ()=>dispatch(loadCatalog()),
+        loadBrands: ()=>dispatch(loadBrands()),
+        loadColors: ()=>dispatch(loadColors()),
+        loadCategory: ()=>dispatch(loadCategory()),
+
+    }
+}
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(App)
+
+export default connected;
