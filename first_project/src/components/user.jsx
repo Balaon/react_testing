@@ -17,14 +17,11 @@ export class User extends Component {
         return "";
     }
 
-    hendlerClick = (e)=>{
+    hendlerClick = (type = "down") => (e) => {
 
-        const { age } = this.state
-        if(e.target.innerText==="Up"){
-            this.setState({ age: age+1,})
-        }else{
-            this.setState((curState)=>( {age: curState.age-1}))
-        }
+        // const { age } = this.state
+        this.setState((prevState)=>({ age: type.toUpperCase() === "UP" ? prevState.age +1 : prevState.age -1 }))
+
     }
 
     render() {
@@ -45,8 +42,8 @@ export class User extends Component {
                         !!puppies.length && this.renderPuppies()
                     }
                 </p>
-                <button onClick={ this.hendlerClick }> Up </button> &nbsp;
-                <button onClick={ this.hendlerClick }> Down </button>;
+                <button onClick={ this.hendlerClick( "up" ) }> Up </button> &nbsp;
+                <button onClick={ this.hendlerClick() }> Down </button>;
             </div>
         )
     }
