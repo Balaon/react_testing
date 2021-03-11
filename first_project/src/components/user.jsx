@@ -8,6 +8,7 @@ export class User extends Component {
         this.state = {
             name: "Yurii",
             age: 24,
+            gender: "M",
             puppies: [],
             address: "Moscow, st. Stroitelei 50, flat 200",
         }
@@ -29,9 +30,19 @@ export class User extends Component {
         this.setState( { name: value })
     };
 
+    renderMale = (gender) => {
 
+        // if (gender === "M") return "Male";
+        // if (gender === "F") return "Female";
+        // return ""; 
+        
+        return ({ 
+            M: "Male",
+            F: "Female",
+        })[gender];
+    }
     render() {
-        const { name, age, puppies, address } = this.state
+        const { name, age, gender, puppies, address, } = this.state
         const styles = {
             border: "2px solid red",
             borderRadius: "5px",
@@ -42,6 +53,7 @@ export class User extends Component {
             <div style={ styles }>
                 <h3> user name: { name } </h3>
                 <p> 
+                    Gender: { this.renderMale(gender)} <br/>
                     Age: { age } <br />
                     Addres: { address } <br />
                     {
