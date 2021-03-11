@@ -8,6 +8,7 @@ import { SimpleUser } from "./components/simpleUser";
 function App(props) {
 
   const users = [{
+                    id: 1,
                     name: "Петя",
                     age: 22,
                     gender: "M",
@@ -16,6 +17,7 @@ function App(props) {
                     description: "Жили у бабуси два веселых гуся",
                   },
                   {
+                    id: 2,
                     name: "Надя",
                     age: 35,
                     gender: "F",
@@ -24,6 +26,7 @@ function App(props) {
                     description: "Немного лет тому назад, там где сливаяся, шумят",
                   },
                   {
+                    id: 3,
                     name: "Дима",
                     age: 45,
                     gender: "M",
@@ -32,17 +35,24 @@ function App(props) {
                     description: "Обнявшись будто две сесты, струи Арагви и Куры",
                   },];
     
-    const renderUsers = (userInfo, index) => {
-        return (<SimpleUser 
-                    key={ index }
-                    name={ userInfo.name }
-                    age={ userInfo.age }
-                    gender={ userInfo.gender }
-                    address={ userInfo.address }
-                    puppies={ userInfo.puppies }
-                    description={ userInfo.description }
-            /> );
-    };
+    const renderUsers = ({
+        id,
+        name,
+        age,
+        gender,
+        address, 
+        puppies,
+        description,
+        }) => (<SimpleUser 
+                    key={ id }
+                    name={ name }
+                    age={ age }
+                    gender={ gender }
+                    address={ address }
+                    puppies={ puppies }
+                    description={ description }
+    /> );
+
 
     return (
         <div className="App">
