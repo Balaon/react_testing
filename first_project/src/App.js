@@ -12,7 +12,7 @@ function App(props) {
                     age: 22,
                     gender: "M",
                     address: "Москва", 
-                    puppies,
+                    puppies: [],
                     description: "Жили у бабуси два веселых гуся",
                   },
                   {
@@ -20,7 +20,7 @@ function App(props) {
                     age: 35,
                     gender: "F",
                     address: "Санкт-Петербург", 
-                    puppies,
+                    puppies: [],
                     description: "Немного лет тому назад, там где сливаяся, шумят",
                   },
                   {
@@ -28,22 +28,36 @@ function App(props) {
                     age: 45,
                     gender: "M",
                     address: "Казань", 
-                    puppies,
+                    puppies: [],
                     description: "Обнявшись будто две сесты, струи Арагви и Куры",
                   },];
-                  
-  return (
-    <div className="App">
-        <User description="Какое-то описание для юзера" /> <br />
-        <div style= { {display:"flex"} }>
-            <SimpleUser name="Иван" age={ 33 }/> 
-        </div>
-        <div>Yo! { props.name }</div>
-        
-        <App2 />
+    
+    const renderUsers = (userInfo, index) => {
+        return (<SimpleUser 
+                    key={ index }
+                    name={ userInfo.name }
+                    age={ userInfo.age }
+                    gender={ userInfo.gender }
+                    address={ userInfo.address }
+                    puppies={ userInfo.puppies }
+                    description={ userInfo.description }
+            /> );
+    };
 
-    </div>
-  );
+    return (
+        <div className="App">
+            <User description="Какое-то описание для юзера" /> <br />
+            <div style= { {display:"flex"} }>
+                {
+                    users.map( renderUsers )  
+                }
+            </div>
+            <div>Yo! { props.name }</div>
+        
+            <App2 />
+
+        </div>
+    );
 }
 
 export default App;
