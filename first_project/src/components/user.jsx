@@ -1,6 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import * as PropTypes from 'prop-types';
 
 export class User extends Component {
+
+    static propTypes ={
+        description: PropTypes.string,
+    };
+
+    static defaultProps ={
+        description: "no description",
+    };
 
     constructor(props){
         super(props)
@@ -26,8 +35,12 @@ export class User extends Component {
 
     hendleChange = (e) => {
 
-        const { value } = e.target;
-        this.setState( { name: value })
+        const { target } = e;
+        const { name } = target;
+        const value = target.type === "radio" ? target.checked : target.value;
+        this.setState( { 
+            [name]: value,
+         })
     };
 
     renderMale = (gender) => {
@@ -53,14 +66,33 @@ export class User extends Component {
             <div style={ styles }>
                 <h3> user name: { name } </h3>
                 <p> 
-                    Gender: { this.renderMale(gender)} <br/>
+                    Gender: { this.renderMale(gender) } <br/>
                     Age: { age } <br />
                     Addres: { address } <br />
                     {
                         !!puppies.length && this.renderPuppies()
                     }
                 </p>
-                <input type="text" value = { this.state.name } onChange={ this.handleChange }/>
+                <hr/>
+                <input type="text" name="name" value = { name } onChange={ this.handleChange }/> <br/>
+
+                <input 
+                    type="radio" 
+                    name="gender" 
+                    checked={ this.gender ==="M" } 
+                    value="M" 
+                    onChange={ this.handleChange }
+                /> -Male <br/>
+
+                <input 
+                    type="radio" 
+                    name="gender" 
+                    checked={ this.gender ==="F" } 
+                    value="F" 
+                    onChange={ this.handleChange }
+                /> -Female <br/>
+
+                <hr/>
                 <button onClick={ this.hendleClick( "up" ) }> Up </button> &nbsp;
                 <button onClick={ this.hendleClick() }> Down </button>;
             </div>
