@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import * as PropTypes from 'prop-types';
 
+
 export class User extends Component {
 
     static propTypes ={
-        description: PropTypes.string,
+        description: PropTypes.string.isRequired,
+        id: PropTypes.number,
     };
 
     static defaultProps ={
@@ -33,7 +35,7 @@ export class User extends Component {
 
     };
 
-    hendleChange = (e) => {
+    handleChange = (e) => {
 
         const { target } = e;
         const { name } = target;
@@ -59,7 +61,8 @@ export class User extends Component {
         const styles = {
             border: "2px solid red",
             borderRadius: "5px",
-            color: "425112"
+            color: "425112",
+            width: "300px",
         };
 
         return (
@@ -71,6 +74,12 @@ export class User extends Component {
                     Addres: { address } <br />
                     {
                         !!puppies.length && this.renderPuppies()
+                    }
+                </p>
+                <hr/>
+                <p>
+                    {
+                        this.props.description
                     }
                 </p>
                 <hr/>
