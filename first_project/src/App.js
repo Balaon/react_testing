@@ -31,6 +31,7 @@ function App(props) {
                     puppies,
                     description: "Обнявшись будто две сесты, струи Арагви и Куры",
                   },];
+                  
   return (
     <div className="App">
         <User description="Какое-то описание для юзера" /> <br />
