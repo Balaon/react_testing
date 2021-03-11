@@ -17,12 +17,18 @@ export class User extends Component {
         return "";
     }
 
-    hendlerClick = (type = "down") => (e) => {
+    hendleClick = (type = "down") => (e) => {
 
-        // const { age } = this.state
         this.setState((prevState)=>({ age: type.toUpperCase() === "UP" ? prevState.age +1 : prevState.age -1 }))
 
-    }
+    };
+
+    hendleChange = (e) => {
+
+        const { value } = e.target;
+        this.setState( { name: value })
+    };
+
 
     render() {
         const { name, age, puppies, address } = this.state
@@ -42,8 +48,9 @@ export class User extends Component {
                         !!puppies.length && this.renderPuppies()
                     }
                 </p>
-                <button onClick={ this.hendlerClick( "up" ) }> Up </button> &nbsp;
-                <button onClick={ this.hendlerClick() }> Down </button>;
+                <input type="text" value = { this.state.name } onChange={ this.handleChange }/>
+                <button onClick={ this.hendleClick( "up" ) }> Up </button> &nbsp;
+                <button onClick={ this.hendleClick() }> Down </button>;
             </div>
         )
     }
