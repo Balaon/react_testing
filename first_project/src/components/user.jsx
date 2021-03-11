@@ -46,11 +46,6 @@ export class User extends Component {
     };
 
     renderMale = (gender) => {
-
-        // if (gender === "M") return "Male";
-        // if (gender === "F") return "Female";
-        // return ""; 
-        
         return ({ 
             M: "Male",
             F: "Female",
