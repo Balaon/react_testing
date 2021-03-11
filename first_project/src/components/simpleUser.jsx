@@ -11,15 +11,7 @@ export function SimpleUser({
                             description,
                                         }){
 
-    // const {
-    //     name,
-    //     age,
-    //     gender,
-    //     address, 
-    //     puppies,
-    //     description,
-    // } = props;
-    
+ 
     const styles = {
         border: "2px solid red",
         borderRadius: "5px",
