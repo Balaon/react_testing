@@ -19,7 +19,7 @@ export class User extends Component {
         this.state = {
             name: "Yurii",
             age: 24,
-            gender: "M",
+            gender: "",
             puppies: [],
             address: "Moscow, st. Stroitelei 50, flat 200",
         }
@@ -36,10 +36,12 @@ export class User extends Component {
     };
 
     handleChange = (e) => {
-
         const { target } = e;
         const { name } = target;
-        const value = target.type === "radio" ? target.checked : target.value;
+        console.log(target.value)
+        console.log(target.checked)
+
+        const value = target.type === "radio" ? target.value : target.checked;
         this.setState( { 
             [name]: value,
          })
@@ -83,7 +85,6 @@ export class User extends Component {
                 <input 
                     type="radio" 
                     name="gender" 
-                    checked={ this.gender ==="M" } 
                     value="M" 
                     onChange={ this.handleChange }
                 /> -Male <br/>
@@ -91,7 +92,6 @@ export class User extends Component {
                 <input 
                     type="radio" 
                     name="gender" 
-                    checked={ this.gender ==="F" } 
                     value="F" 
                     onChange={ this.handleChange }
                 /> -Female <br/>
