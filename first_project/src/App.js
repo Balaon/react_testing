@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import './App.css';
-import { App as App2 } from "./App2";
 import { User } from './components/user'
 import { SimpleUser } from "./components/simpleUser";
 
@@ -62,10 +60,6 @@ function App(props) {
                     users.map( renderUsers )  
                 }
             </div>
-            <div>Yo! { props.name }</div>
-        
-            <App2 />
-
         </div>
     );
 }
