@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Err } from './components/err'
+import { MovieCard } from './components/movieCard'
 import { 
   Button, 
   Container, 
@@ -43,58 +44,31 @@ export class App extends React.PureComponent {
   renderCard = ()=>{
     const item = this.state.list[0] ? this.state.list[0].show : {};
 
-    const {
-      id,
-      name = "",
-      url = "",
-      summary= "", 
-      premiered= "",
-      image = {},
-    } = item
    
     const onViewMore = () => null
     const onchange = () => null
     const watched = false;
 
-   
-    return (
+   if (this.state.list.length === 0){
+     return null;
+   }
+    return this.state.list.map((item) => {
 
-      <div>
-        <Card color={ watched ? "primary" : "" }>
-          <CardImg top width="100%" src={ image.medium } alt={ name }/>
-          <CardBody>
-            <CardTitle>{ name }</CardTitle>
-            <CardText><small dangerouslySetInnerHTML={ { __html: summary } }/></CardText>
-            <CardText>
-              <small className="text-muted">{ premiered }</small> <br />
-              <small><a target="_blink" href={ url }>Visit movie page</a></small> <br />
-            </CardText>
-            <Row>
-              <Col>
-                <Button
-                size="sm"
-                onClick={ () => { onchange(id) }}
-                variant={ watched ? "seccess" : "outline-secondary"}
-                >
-                  { watched ? "Смотрел" : "Не смотрел"}
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  size="sm"
-                  onClick={ () => { onViewMore(id) } }
-                  variant="info"
-                >
-                  Детали
-                </Button>
-              </Col>
-            </Row>
-          </CardBody>
-        </Card>
-      </div>
+      const {
+        id,
+        name = "",
+        url = "",
+        summary= "", 
+        premiered= "",
+        image = {},
+      } = item.show || {}
+     
       
+      return <MovieCard />; 
+
+    });   
     );
-  }
+  };
 
   render() {
     
