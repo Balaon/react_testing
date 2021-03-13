@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { Err } from './components/err'
 import { 
   Button, 
   Container, 
@@ -20,7 +21,7 @@ export class App extends React.PureComponent {
 
     this.state = {
       list: [],
-      watchde: [],
+      watched: [],
       errState: null,
     }
   }
@@ -35,37 +36,76 @@ export class App extends React.PureComponent {
           console.log( data )
       }).catch((e) => {
           console.log(e)
+          this.setState({ errState: e });
       });
   }
 
   renderCard = ()=>{
-    const item = this.state.list[0] ?this.state.list[0].show : {};
+    const item = this.state.list[0] ? this.state.list[0].show : {};
 
     const {
+      id,
       name = "",
       url = "",
+      summary= "", 
+      premiered= "",
       image = {},
     } = item
    
+    const onViewMore = () => null
+    const onchange = () => null
+    const watched = false;
+
+   
     return (
-      <Card>
-        <CardImg top width="100%" scr={ image.medium } alt={ name }/>
-        <CardBody>
-          <CardTitle>{ name }</CardTitle>
-          <CardSubtitle></CardSubtitle>
-          <CardText></CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
+
+      <div>
+        <Card color={ watched ? "primary" : "" }>
+          <CardImg top width="100%" src={ image.medium } alt={ name }/>
+          <CardBody>
+            <CardTitle>{ name }</CardTitle>
+            <CardText><small dangerouslySetInnerHTML={ { __html: summary } }/></CardText>
+            <CardText>
+              <small className="text-muted">{ premiered }</small> <br />
+              <small><a target="_blink" href={ url }>Visit movie page</a></small> <br />
+            </CardText>
+            <Row>
+              <Col>
+                <Button
+                size="sm"
+                onClick={ () => { onchange(id) }}
+                variant={ watched ? "seccess" : "outline-secondary"}
+                >
+                  { watched ? "Смотрел" : "Не смотрел"}
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  size="sm"
+                  onClick={ () => { onViewMore(id) } }
+                  variant="info"
+                >
+                  Детали
+                </Button>
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
+      </div>
+      
     );
   }
 
   render() {
+    
+    if (this.state.errState !== null) {
+      return <Err />
+    }
   
     return (
         <Container>
           <Row>
-            <Col>
+            <Col sm="4">
             {
               this.renderCard()
             }
