@@ -3,14 +3,7 @@ import './App.css';
 import { Err } from './components/err'
 import { MovieCard } from './components/movieCard'
 import { 
-  Button, 
   Container, 
-  Card, 
-  CardImg, 
-  CardBody, 
-  CardSubtitle, 
-  CardText, 
-  CardTitle, 
   Col, 
   Row } from 'reactstrap';
 
@@ -42,16 +35,10 @@ export class App extends React.PureComponent {
   }
 
   renderCard = ()=>{
-    const item = this.state.list[0] ? this.state.list[0].show : {};
 
-   
-    const onViewMore = () => null
-    const onchange = () => null
-    const watched = false;
-
-   if (this.state.list.length === 0){
+    if (this.state.list.length === 0){
      return null;
-   }
+    }
     return this.state.list.map((item) => {
 
       const {
@@ -61,13 +48,19 @@ export class App extends React.PureComponent {
         summary= "", 
         premiered= "",
         image = {},
-      } = item.show || {}
+      } = item.show || {};
      
       
-      return <MovieCard />; 
+      return <MovieCard
+              id={ id }
+              name={ name }
+              url={ url }
+              summary={ summary }
+              premiered={ premiered }
+              image={ image.medium }
+            />; 
 
     });   
-    );
   };
 
   render() {
