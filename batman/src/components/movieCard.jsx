@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import * as PropTypes from "prop-types";
+import * as URL from '../router/url'
 import { 
     Button, 
     Card, 
@@ -11,7 +13,7 @@ import {
     Row } from 'reactstrap';
 
 
-export  function MovieCard(props) {
+function MovieCard(props) {
 
     const onViewMore = () => null
     const onChange = () => null
@@ -48,13 +50,15 @@ export  function MovieCard(props) {
                     </Button>
                 </Col>
                 <Col>
-                    <Button
-                    size="sm"
-                    onClick={ () => { onViewMore(id) } }
-                    variant="info"
+                    <Link
+                        to={ `${ URL.DETAILS }/${ id }` }
+                        // size="sm"
+                        // onClick={ () => { onViewMore(id) } }
+                        // variant="info"
+                        className="btn btn-secondary btn-sm"
                     >
                     Детали
-                    </Button>
+                    </Link>
                 </Col>
                 </Row>
             </CardBody>
@@ -71,4 +75,4 @@ MovieCard.propTypes ={
         premiered:PropTypes.string,
 }
 
-
+export default MovieCard;

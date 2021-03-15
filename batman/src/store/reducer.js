@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { connectRouter } from 'connected-react-router';
 import * as ACT from './actions'
 
 const initialState = {
@@ -35,7 +36,7 @@ function rootReducer(store = initialState, action) {
 }
 
 export default (history) => combineReducers({ 
-    router: 'connectRouter(history)',
+    router: connectRouter(history),
     app: rootReducer,
 });
 

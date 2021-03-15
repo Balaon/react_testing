@@ -1,10 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './App.css';
 import * as ActionCreators from './store/action_creatores';
 import { Err } from './components/err';
-import { MovieCard } from './components/movieCard';
+import MovieCard from './components/movieCard';
 import { 
   Container, 
   Col, 
@@ -16,43 +16,14 @@ class App extends React.PureComponent {
   static propTypes = {
     moviesList: PropTypes.array.isRequired,
     getMovies: PropTypes.func.isRequired,
-    errState: PropTypes.string,
+    errState: PropTypes.bool,
   }
 
   componentDidMount(){
     this.props.getMovies("batman");
   }
 
-  renderCard = ()=>{
-
-    const { moviesList } = this.props;
-    if (moviesList.length === 0){
-     return null;
-    }
-    return moviesList.map((item) => {
-
-      const {
-        id,
-        name = "",
-        url = "",
-        summary= "", 
-        premiered= "",
-        image = {},
-      } = item.show || {};
-     
-      
-      return <MovieCard
-              key={ id }
-              id={ id }
-              name={ name }
-              url={ url }
-              summary={ summary }
-              premiered={ premiered }
-              image={ image.medium }
-            />; 
-
-    });   
-  };
+    
 
   render() {
     
@@ -63,14 +34,11 @@ class App extends React.PureComponent {
     return (
         <Container>
           <Row>
-            <Col sm="12">
-              <div style={ { display: "flex", flexWrap: "wrap", justifyContent: "space-between" } }>
-                { 
-                  this.renderCard()
-                } 
-              </div>
-            </Col>
+            <Col><h1>Batman Movies</h1></Col>
           </Row>
+          {
+            this.props.children
+          }
         </Container>
     );
   }
@@ -83,9 +51,9 @@ const mapStateToProps = (globalStorage) =>{
   }
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatcher) =>{
   return {
-    getMovies: (payload) => dispatch(ActionCreators.getMovies(payload)),
+    getMovies: (payload) => dispatcher(ActionCreators.getMovies(payload)),
   }
 }
 
