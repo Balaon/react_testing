@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './App.css';
-import { Err } from './components/err'
-import { MovieCard } from './components/movieCard'
+import * as ActionCreators from './store/action_creatores';
+import { Err } from './components/err';
+import { MovieCard } from './components/movieCard';
 import { 
   Container, 
   Col, 
@@ -21,17 +23,7 @@ export class App extends React.PureComponent {
   }
 
   componentDidMount(){
-    const movies = fetch('https://api.tvmaze.com/search/shows?q=batman');
-
-    movies.then((data) => {
-        return data.json();
-      }).then((data) => {
-          this.setState({ list: data || [ ]})
-          console.log( data )
-      }).catch((e) => {
-          console.log(e)
-          this.setState({ errState: e });
-      });
+   
   }
 
   renderCard = ()=>{
@@ -72,10 +64,12 @@ export class App extends React.PureComponent {
     return (
         <Container>
           <Row>
-            <Col sm="4">
-            {
-              this.renderCard()
-            }
+            <Col sm="12">
+              <div style={ { display: "flex", flexWrap: "wrap", justifyContent: "space-between" } }>
+                { 
+                  this.renderCard()
+                } 
+              </div>
             </Col>
           </Row>
         </Container>
@@ -83,5 +77,16 @@ export class App extends React.PureComponent {
   }
   
 }
+const mapStateToProps = (globalStorage) =>{
+  return {
+    moviesList: globalStorage.app.movies || [],
+  }
+}
 
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    getMovies: (payload) => dispatch(ActionCreators.getMovies(payload)),
+  }
+}
 
+const connected = connect(mapStateToProps, mapDispatchToProps)(App);
