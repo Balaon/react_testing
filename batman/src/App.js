@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as PropTypes from 'prop-types';
 import './App.css';
 import * as ActionCreators from './store/action_creatores';
 import { Err } from './components/err';
@@ -10,28 +11,25 @@ import {
   Row } from 'reactstrap';
 
 
-export class App extends React.PureComponent {
+class App extends React.PureComponent {
 
-  constructor(props){
-    super(props)
-
-    this.state = {
-      list: [],
-      watched: [],
-      errState: null,
-    }
+  static propTypes = {
+    moviesList: PropTypes.array.isRequired,
+    getMovies: PropTypes.func.isRequired,
+    errState: PropTypes.string,
   }
 
   componentDidMount(){
-   
+    this.props.getMovies("batman");
   }
 
   renderCard = ()=>{
 
-    if (this.state.list.length === 0){
+    const { moviesList } = this.props;
+    if (moviesList.length === 0){
      return null;
     }
-    return this.state.list.map((item) => {
+    return moviesList.map((item) => {
 
       const {
         id,
@@ -44,6 +42,7 @@ export class App extends React.PureComponent {
      
       
       return <MovieCard
+              key={ id }
               id={ id }
               name={ name }
               url={ url }
@@ -57,7 +56,7 @@ export class App extends React.PureComponent {
 
   render() {
     
-    if (this.state.errState !== null) {
+    if (this.props.errState !== null) {
       return <Err />
     }
   
@@ -80,6 +79,7 @@ export class App extends React.PureComponent {
 const mapStateToProps = (globalStorage) =>{
   return {
     moviesList: globalStorage.app.movies || [],
+    errState: globalStorage.app.errState,
   }
 }
 
@@ -90,3 +90,5 @@ const mapDispatchToProps = (dispatch) =>{
 }
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default connected;
