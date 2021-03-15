@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import * as ActionCreators from './store/action_creatores';
 import { Err } from './components/err';
-import MovieCard from './components/movieCard';
-import { 
-  Container, 
-  Col, 
-  Row } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 
 class App extends React.PureComponent {
@@ -33,9 +29,6 @@ class App extends React.PureComponent {
   
     return (
         <Container>
-          <Row>
-            <Col><h1>Batman Movies</h1></Col>
-          </Row>
           {
             this.props.children
           }
@@ -44,6 +37,8 @@ class App extends React.PureComponent {
   }
   
 }
+
+
 const mapStateToProps = (globalStorage) =>{
   return {
     moviesList: globalStorage.app.movies || [],
