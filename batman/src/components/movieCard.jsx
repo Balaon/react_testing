@@ -15,7 +15,6 @@ import {
 
 function MovieCard(props) {
 
-    const onViewMore = () => null
     const onChange = () => null
     const watched = false;
 
@@ -52,9 +51,6 @@ function MovieCard(props) {
                 <Col>
                     <Link
                         to={ `${ URL.DETAILS }/${ id }` }
-                        // size="sm"
-                        // onClick={ () => { onViewMore(id) } }
-                        // variant="info"
                         className="btn btn-secondary btn-sm"
                     >
                     Детали
