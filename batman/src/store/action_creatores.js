@@ -3,25 +3,33 @@ import * as ACT from './actions';
 
 export function getMovies(payload) {
 
+    const requestURL = `https://api.tvmaze.com/search/shows?q=${ payload }`; //batman
     return (dispatcher) => {
-        const movies = fetch('https://api.tvmaze.com/search/shows?q=batman');
+        dispatcher(updateLoadingAct(true))
 
+        const movies = fetch(requestURL);
         movies.then((data) => {
-            return data.json();
+                return data.json();
           }).then((data) => {
-              this.setState({ list: data || [ ]})
-              console.log( data )
+                dispatcher(updateMoviesAct(data))
+                dispatcher(updateLoadingAct(false))
           }).catch((e) => {
-              console.log(e)
-              this.setState({ errState: e });
+                dispatcher(updateLoadingAct(false))
+                dispatcher(errorOccurredAct(e))
           });
-
     }
-
 }
-export function loadMoviesAct(payload) {
+
+export function updateLoadingAct(payload) {
     return {
-        type: ACT.MOVIES_LOADED,
+        type: ACT.UPDATE_LOADING,
+        payload,
+    };
+}
+
+export function updateMoviesAct(payload) {
+    return {
+        type: ACT.UPDATE_MOVIES,
         payload,
     };
 }
