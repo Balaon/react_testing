@@ -45,6 +45,10 @@ function RootPage() {
     const styles =  { display: "flex", flexWrap: "wrap", justifyContent: "space-between" };
     
     return (
+      <>
+        <Row>
+          <Col><h1>Batman Movies</h1></Col>
+        </Row>
         <Row>
             <Col sm="12">
               <div style={ styles }>
@@ -54,6 +58,7 @@ function RootPage() {
               </div>
             </Col>
         </Row>
+        </>
     )
 }
 
