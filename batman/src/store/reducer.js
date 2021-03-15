@@ -12,7 +12,7 @@ const initialState = {
 function rootReducer(store = initialState, action) {
 
     switch (action.type) {
-        case ACT.MOVIES_LOADED:
+        case ACT.UPDATE_MOVIES:
             return{ ...store, movies: action.payload };
 
         case ACT.ERROR_OCCURRED:
@@ -26,6 +26,9 @@ function rootReducer(store = initialState, action) {
 
         case ACT.UPDATE_LOADING:
             return{ ...store, isLoading: action.payload };
+        
+        default:
+            break;
     }
 
     return store;
@@ -34,5 +37,5 @@ function rootReducer(store = initialState, action) {
 export default (history) => combineReducers({ 
     router: 'connectRouter(history)',
     app: rootReducer,
-})
+});
 
